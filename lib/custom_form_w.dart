@@ -34,6 +34,8 @@ class CustomFormW extends StatefulWidget {
     this.phoneRegex = r'^\d{10}$',
     this.phoneRegexError = 'Please enter a valid 10-digit phone number',
     this.passwordLength = 8,
+    this.horizontalPadding,
+    this.verticalPadding,
   });
 
   final int numberOfFields;
@@ -66,6 +68,7 @@ class CustomFormW extends StatefulWidget {
   final String? phoneRegex;
   final String? phoneRegexError;
   final int? passwordLength;
+  final double? horizontalPadding, verticalPadding;
 
   @override
   State<CustomFormW> createState() => _CustomFormWState();
@@ -86,7 +89,9 @@ class _CustomFormWState extends State<CustomFormW> {
     return Form(
       key: widget.formKey,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(
+            horizontal: widget.horizontalPadding ?? 16,
+            vertical: widget.verticalPadding ?? 0),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
@@ -101,8 +106,10 @@ class _CustomFormWState extends State<CustomFormW> {
                     children: List.generate(
                       widget.numberOfFields,
                       (index) => Directionality(
-                        textDirection: widget.textDirection ?? TextDirection.ltr,
-                        child: widget.keyboardType?[index] == TextInputType.phone
+                        textDirection:
+                            widget.textDirection ?? TextDirection.ltr,
+                        child: widget.keyboardType?[index] ==
+                                TextInputType.phone
                             ? IntlPhoneField(
                                 controller: widget.controllers?[index],
                                 decoration: InputDecoration(
@@ -113,8 +120,10 @@ class _CustomFormWState extends State<CustomFormW> {
                                       TextStyle(
                                           color: widget.requiredFieldIndices
                                                   .contains(index + 1)
-                                              ? widget.requiredColor ?? Colors.red
-                                              : widget.labelColor ?? Colors.black),
+                                              ? widget.requiredColor ??
+                                                  Colors.red
+                                              : widget.labelColor ??
+                                                  Colors.black),
                                   border: widget.withoutBorder == true
                                       ? InputBorder.none
                                       : OutlineInputBorder(
@@ -127,8 +136,10 @@ class _CustomFormWState extends State<CustomFormW> {
                                           borderRadius: BorderRadius.circular(
                                               widget.radius ?? 10),
                                           borderSide: BorderSide(
-                                              color: widget.enabledBorderColor ??
-                                                  Colors.grey.withValues(alpha: .5)),
+                                              color: widget
+                                                      .enabledBorderColor ??
+                                                  Colors.grey
+                                                      .withValues(alpha: .5)),
                                         ),
                                   focusedBorder: widget.withoutBorder == true
                                       ? InputBorder.none
@@ -136,8 +147,10 @@ class _CustomFormWState extends State<CustomFormW> {
                                           borderRadius: BorderRadius.circular(
                                               widget.radius ?? 10),
                                           borderSide: BorderSide(
-                                              color: widget.focusedBorderColor ??
-                                                  Colors.grey.withValues(alpha: .5)),
+                                              color: widget
+                                                      .focusedBorderColor ??
+                                                  Colors.grey
+                                                      .withValues(alpha: .5)),
                                         ),
                                 ),
                                 initialCountryCode: 'EG',
@@ -161,13 +174,16 @@ class _CustomFormWState extends State<CustomFormW> {
                                       TextStyle(
                                           color: widget.requiredFieldIndices
                                                   .contains(index + 1)
-                                              ? widget.requiredColor ?? Colors.red
-                                              : widget.labelColor ?? Colors.black),
+                                              ? widget.requiredColor ??
+                                                  Colors.red
+                                              : widget.labelColor ??
+                                                  Colors.black),
                                   hintText: widget.hintText?[index] ??
                                       'Enter ${widget.labelText[index]}',
                                   hintStyle: widget.hintStyle ??
                                       TextStyle(
-                                          color: Colors.grey.withValues(alpha: .5)),
+                                          color: Colors.grey
+                                              .withValues(alpha: .5)),
                                   hintTextDirection: widget.textDirection,
                                   filled: true,
                                   fillColor: widget.fillColor,
@@ -195,8 +211,10 @@ class _CustomFormWState extends State<CustomFormW> {
                                           borderRadius: BorderRadius.circular(
                                               widget.radius ?? 10),
                                           borderSide: BorderSide(
-                                              color: widget.enabledBorderColor ??
-                                                  Colors.grey.withValues(alpha: .5)),
+                                              color: widget
+                                                      .enabledBorderColor ??
+                                                  Colors.grey
+                                                      .withValues(alpha: .5)),
                                         ),
                                   focusedBorder: widget.withoutBorder == true
                                       ? InputBorder.none
@@ -204,8 +222,10 @@ class _CustomFormWState extends State<CustomFormW> {
                                           borderRadius: BorderRadius.circular(
                                               widget.radius ?? 10),
                                           borderSide: BorderSide(
-                                              color: widget.focusedBorderColor ??
-                                                  Colors.grey.withValues(alpha: .5)),
+                                              color: widget
+                                                      .focusedBorderColor ??
+                                                  Colors.grey
+                                                      .withValues(alpha: .5)),
                                         ),
                                 ),
                                 validator: (value) {
@@ -215,7 +235,7 @@ class _CustomFormWState extends State<CustomFormW> {
                                     return 'Please enter ${widget.labelText[index]}';
                                   }
                                   if (widget.numberOfFields <= 0) {
-                                    return 'Number of fields must be greater than 0';
+                                    return 'Number of Fields must be Greater than 0';
                                   }
 
                                   // Email validation
@@ -224,7 +244,7 @@ class _CustomFormWState extends State<CustomFormW> {
                                     if (!RegExp(
                                             r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
                                         .hasMatch(value ?? '')) {
-                                      return 'Please enter a valid email address';
+                                      return 'Please Enter a valid Email Address';
                                     }
                                   }
 
@@ -233,23 +253,23 @@ class _CustomFormWState extends State<CustomFormW> {
                                       TextInputType.visiblePassword) {
                                     if ((value?.length ?? 0) <
                                         (widget.passwordLength ?? 8)) {
-                                      return 'Password must be at least ${widget.passwordLength ?? 8} characters';
+                                      return 'Password must be at least ${widget.passwordLength ?? 8} Characters';
                                     }
                                     if (!RegExp(r'(?=.*?[A-Z])')
                                         .hasMatch(value ?? '')) {
-                                      return 'Password must contain at least one uppercase letter';
+                                      return 'Password must Contain at least one Uppercase Letter';
                                     }
                                     if (!RegExp(r'(?=.*?[a-z])')
                                         .hasMatch(value ?? '')) {
-                                      return 'Password must contain at least one lowercase letter';
+                                      return 'Password must Contain at least one Lowercase Letter';
                                     }
                                     if (!RegExp(r'(?=.*?[0-9])')
                                         .hasMatch(value ?? '')) {
-                                      return 'Password must contain at least one number';
+                                      return 'Password must Contain at Least one Number';
                                     }
                                     if (!RegExp(r'(?=.*?[!@#\$&*~])')
                                         .hasMatch(value ?? '')) {
-                                      return 'Password must contain at least one special character';
+                                      return 'Password must Contain at least one Special Character';
                                     }
 
                                     // Store password for confirmation matching
@@ -296,13 +316,16 @@ class _CustomFormWState extends State<CustomFormW> {
                                   SnackBar(
                                       behavior: SnackBarBehavior.floating,
                                       backgroundColor: Colors.green,
-                                      margin: EdgeInsets.only(
-                                          bottom: MediaQuery.of(context)
-                                                  .size
-                                                  .height -
-                                              90),
-                                      content: Text(widget.validationSnackBarText ??
-                                          'Form is valid')))
+                                      margin:
+                                          EdgeInsets.only(
+                                              bottom:
+                                                  MediaQuery.of(context)
+                                                          .size
+                                                          .height -
+                                                      90),
+                                      content: Text(
+                                          widget.validationSnackBarText ??
+                                              'Form is valid')))
                               : SizedBox();
 
                           if (widget.onSubmit != null) {
@@ -314,11 +337,13 @@ class _CustomFormWState extends State<CustomFormW> {
                                   SnackBar(
                                       behavior: SnackBarBehavior.floating,
                                       backgroundColor: Colors.red,
-                                      margin: EdgeInsets.only(
-                                          bottom: MediaQuery.of(context)
-                                                  .size
-                                                  .height -
-                                              90),
+                                      margin:
+                                          EdgeInsets.only(
+                                              bottom:
+                                                  MediaQuery.of(context)
+                                                          .size
+                                                          .height -
+                                                      90),
                                       content: Text(
                                           'Please fill in all required fields')))
                               : SizedBox();
@@ -333,6 +358,5 @@ class _CustomFormWState extends State<CustomFormW> {
         ),
       ),
     );
-
   }
 }
