@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:custom_form_w/custom_form_w.dart';
+import 'package:custom_form_w/custom_form.dart';
 
 void main() {
   test('test custom form widget', () {
-    final customForm = CustomFormW(
+    final customForm = CustomForm(
       numberOfFields: 2,
       requiredFieldIndices: [1, 2],
       labelText: ['Name', 'Email'],

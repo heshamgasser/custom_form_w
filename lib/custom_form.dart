@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
-class CustomFormW extends StatefulWidget {
-  const CustomFormW({
+class CustomForm extends StatefulWidget {
+  const CustomForm({
     super.key,
     required this.numberOfFields,
     required this.requiredFieldIndices,
@@ -71,10 +71,10 @@ class CustomFormW extends StatefulWidget {
   final double? horizontalPadding, verticalPadding;
 
   @override
-  State<CustomFormW> createState() => _CustomFormWState();
+  State<CustomForm> createState() => _CustomFormState();
 }
 
-class _CustomFormWState extends State<CustomFormW> {
+class _CustomFormState extends State<CustomForm> {
   List<bool> _passwordVisible = [];
   String? _password;
 

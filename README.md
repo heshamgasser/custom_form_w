@@ -9,7 +9,7 @@ A flexible and customizable form widget for Flutter that allows for dynamic form
 ![CustomFormW Example](screenshots/image_five.jpeg) 
 ## Example
 ```dart
-import 'package:custom_form_w/custom_form_w.dart';
+import 'package:custom_form_w/custom_form.dart';
 import 'package:flutter/material.dart';
 
 void main() {

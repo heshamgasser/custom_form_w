@@ -1,6 +1,6 @@
 
 
-import 'package:custom_form_w/custom_form_w.dart';
+import 'package:custom_form_w/custom_form.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -33,7 +33,7 @@ class MyHomePage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomFormW(
+              CustomForm(
                 showValidationSnackBar: false,
                 formKey: _formKey,
                 onSubmit: () {
